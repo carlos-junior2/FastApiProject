@@ -1,0 +1,39 @@
+#NFA que corresponde a strings começando com 'a', terminando com 'a' e não contendo 'b's consecutivos
+{
+"states" : ["q0", "q1", "q2"],
+"input_symbols": ["a", "b"],
+"transitions": {
+    "q0": {"a": ["q1"]},
+    "q1": {"a": ["q1"], "": ["q2"]},
+    "q2": {"b": ["q0"]}
+},
+"initial_state": "q0",
+"final_states": ["q1"],
+"input_w": "a"
+}
+
+
+#DPDA que corresponde a zero ou mais 'a's, seguido pelo mesmo número de 'b's (aceitando pelo estado final)
+{
+"states" : ["q0", "q1", "q2", "q3"],
+"input_symbols": ["a", "b"],
+"stack_symbols": ["0", "1"],
+"transitions": 
+        {"q0": {
+            "a": {"0": ["q1", ["1", "0"]]}
+        },
+        "q1": {
+            "a": {"1": ["q1", ["1", "1"]]},
+            "b": {"1": ["q2", ""]}
+        },
+        "q2": {
+            "b": {"1": ["q2", ""]}, 
+            "": {"0": ["q3", ["0"]]}
+        }
+},
+"initial_state": "q0",
+"initial_stack_symbol": "0",
+"final_states": ["q3"],
+"acceptance_mode": "final_state",
+"input_w": "ab"
+}
